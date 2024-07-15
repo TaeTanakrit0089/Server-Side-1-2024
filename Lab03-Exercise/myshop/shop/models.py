@@ -9,13 +9,13 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
-    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     remark = models.TextField(null=True)
 
 
 class Cart(models.Model):
-    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now_add=True)
     expired_in = models.IntegerField(default=60)
 
@@ -25,17 +25,18 @@ class Product(models.Model):
     description = models.TextField(null=True)
     remaining_amount = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ManyToManyField("ProductCategory")
 
 
 class OrderItem(models.Model):
-    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
 
 
 class CartItem(models.Model):
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
 
 
@@ -43,13 +44,8 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=150)
 
 
-class Product_Categories(models.Model):
-    product_category_id = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-
 class Payment(models.Model):
-    order_id = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
     payment_date = models.DateTimeField(auto_now_add=True)
     remark = models.TextField(null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -57,8 +53,8 @@ class Payment(models.Model):
 
 
 class PaymentItem(models.Model):
-    payment_id = models.ForeignKey(Payment, on_delete=models.CASCADE)
-    order_item_id = models.OneToOneField(OrderItem, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    order_item = models.OneToOneField(OrderItem, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
