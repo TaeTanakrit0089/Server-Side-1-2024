@@ -5,3 +5,5 @@
 .vscode
 
 Lab03/myvenv
+
+*__pycache__*
