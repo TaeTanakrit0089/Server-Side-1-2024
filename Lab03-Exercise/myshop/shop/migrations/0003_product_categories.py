@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('shop', '0002_product_productcategory_cart_order_orderitem_and_more'),
     ]
@@ -15,7 +14,8 @@ class Migration(migrations.Migration):
             name='Product_Categories',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_category_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.productcategory')),
+                ('product_category_id',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.productcategory')),
                 ('product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product')),
             ],
         ),

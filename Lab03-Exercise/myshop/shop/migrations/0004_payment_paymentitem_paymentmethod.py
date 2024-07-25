@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('shop', '0003_product_categories'),
     ]
@@ -28,7 +27,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('discount', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('order_item_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='shop.orderitem')),
+                ('order_item_id',
+                 models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='shop.orderitem')),
                 ('payment_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.payment')),
             ],
         ),
