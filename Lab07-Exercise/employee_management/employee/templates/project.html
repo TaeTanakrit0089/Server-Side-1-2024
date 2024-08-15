@@ -76,37 +76,38 @@
 </head>
 
 <body>
-    {% include 'nav.html' %}
+{% include 'nav.html' %}
 
-    <main>
-        <div class="head">
-            <h1>Project</h1>
-        </div>
+<main>
+    <div class="head">
+        <h1>Project</h1>
+    </div>
 
-        <div class="itemGroup">
-            
+    <div class="itemGroup">
+        {% for project in projects %}
             <div class="item">
                 <!-- โปรเจค id และ ชื่อ -->
-                <div>{{}}</div>
+                <div>{{ project.id }}.{{ project.name }}</div>
 
                 <!-- วันเริ่ม และ วันกำหนดส่งโปรเจค -->
-                <div>{{}} - {{}}</div>
+                <div>{{ project.start_date }} - {{ project.due_date }}</div>
 
                 <div class="action">
                     <!-- กำหนด path ให้ถูกต้อง -->
                     <a href="/" class="edit btn">แก้ไข</a>
-                    
+
                     <!-- ถ้า code มันแจ้งเตือนอะไรก็ปล่อยไปนะครับไม่มีผลอะไร  -->
-                    <button type="submit" onclick="deleteProject({{ }})" class="delete">Delete</button>
+                    <button type="submit" onclick="deleteProject({{ project.id }})" class="delete">Delete</button>
                 </div>
             </div>
-            
-        </div>
-        
-    </main>
+        {% endfor %}
+
+    </div>
+
+</main>
 </body>
 <script>
-    function deleteProject(pro_id){
+    function deleteProject(pro_id) {
 
         // กำหนด path ให้ถูกต้อง
         fetch(`/api/example/${pro_id}/`, {
@@ -116,12 +117,12 @@
                 'X-CSRFToken': '{{ csrf_token }}'
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Item deleted successfully')
-            window.location.reload()
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                console.log('Item deleted successfully')
+                window.location.reload()
+            })
+            .catch(error => console.error('Error:', error));
     }
 </script>
 </html>

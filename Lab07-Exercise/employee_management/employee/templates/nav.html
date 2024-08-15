@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,9 +104,9 @@
     <header>
         <nav>
             <!-- กำหนด path  -->
-            <a href="/">Project</a>
-            <a href="/employee/">Employee</a>
-            <a href="/employee/position">Position</a>
+            <a href="{% url 'project' %}">Project</a>
+            <a href="{% url 'employee' %}">Employee</a>
+            <a href="{% url 'position' %}">Position</a>
         </nav>
     </header>
 </div>

@@ -15,10 +15,19 @@ def employee(request):
 
 
 def position(request):
-    positions = Position.objects.annotate(num_employees=Count('employee'))
+    positions = Position.objects.annotate(num_employees=Count('employee')).order_by('id')
 
     context = {
         "positions": positions,
     }
 
     return render(request, "position.html", context)
+
+def project(request):
+    project = Project.objects.all()
+
+    context = {
+        "projects": project,
+    }
+
+    return render(request, "project.html", context)

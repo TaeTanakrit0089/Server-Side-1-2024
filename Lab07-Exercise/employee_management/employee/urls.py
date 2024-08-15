@@ -6,4 +6,5 @@ urlpatterns = [
     # ex: /polls/
     path("", views.employee, name="employee"),
     path("position", views.position, name="position"),
+    path("project", views.project, name="project"),
 ]
