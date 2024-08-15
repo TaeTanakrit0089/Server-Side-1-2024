@@ -110,7 +110,7 @@
     function deleteProject(pro_id) {
 
         // กำหนด path ให้ถูกต้อง
-        fetch(`{% url 'project' %}/${pro_id}/`, {
+        fetch(`{% url 'project' %}${pro_id}/delete`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

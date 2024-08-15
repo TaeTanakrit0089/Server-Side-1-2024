@@ -1,6 +1,8 @@
+import json
+
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -38,6 +40,10 @@ class ProjectView(View):
 
         return render(request, "project.html", context)
 
+    def delete(self, request, project_id):
+        print(project_id, "1234")
+        return JsonResponse({"msg": "ok"})
+
 
 class ProjectDetailView(View):
     def get(self, request, project_id):
@@ -53,3 +59,25 @@ class ProjectDetailView(View):
 
         context = {'project': project}
         return render(request, 'project_detail.html', context)
+
+    def put(self, request, project_id):
+        if 'add_user' in request.path_info:
+            project = Project.objects.get(pk=project_id)
+            data = json.loads(request.body).get('emp_id')
+
+            employee = Employee.objects.get(pk=data)
+            project.staff.add(employee)
+            return JsonResponse({'status': 'ok'}, status=200)
+        elif 'remove_user' in request.path_info:
+            project = Project.objects.get(pk=project_id)
+            data = json.loads(request.body).get('emp_id')
+            employee = Employee.objects.get(pk=data)
+            project.staff.remove(employee)
+            return JsonResponse({'status': 'ok'}, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid action'}, status=400)
+
+    def delete(self, request, project_id):
+        project = Project.objects.get(pk=project_id)
+        project.delete()
+        return JsonResponse({'status': 'ok'}, status=200)

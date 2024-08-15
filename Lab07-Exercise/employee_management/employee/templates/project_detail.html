@@ -160,7 +160,7 @@
         const data = {emp_id: emp.value};
 
         // กำหนด path ให้ถูกต้อง
-        fetch(`{% url 'project' %}/${id}/`, {
+        fetch(`{% url 'project' %}{{project.id}}/add_user`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,14 +177,15 @@
     }
 
     async function removeStaff(emp_Id) {
-
+        const data = {emp_id: emp_Id};
         // กำหนด path ให้ถูกต้อง
-        fetch(`/api/example/${emp_Id}/`, {
-            method: 'DELETE',
+        fetch(`{% url 'project' %}{{project.id}}/remove_user/`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': '{{ csrf_token }}'
             },
+            body: JSON.stringify(data)
         })
             .then(response => response.json())
             .then(data => {
