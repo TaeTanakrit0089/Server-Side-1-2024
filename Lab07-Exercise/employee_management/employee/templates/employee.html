@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Employee</title>
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -78,72 +78,69 @@
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         table, th, td {
             border: 1px solid black;
         }
+
         th, td {
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
 
 
     </style>
-    </head>
+</head>
 
-    <body>
-        {% include 'nav.html' %}
+<body>
+{% include 'nav.html' %}
 
-        <main>
-            <div class="head">
-                <h1>Employee</h1>
-                <div class>
-                    <!-- จำนวนพนักงานทั้งหมด -->
-                    <h1>Total {{ }} People</h1>
-                </div>
-            </div>
-            <!-- 
-                ** Hit if และ for ให้ถูกต้อง
-            --> 
+<main>
+    <div class="head">
+        <h1>Employee</h1>
+        <div class>
+            <!-- จำนวนพนักงานทั้งหมด -->
+            <h1>Total {{ total_employees }} People</h1>
+        </div>
+    </div>
+    <!--
+        ** Hit if และ for ให้ถูกต้อง
+    -->
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Genger</th>
-                        <th>Birth Date</th>
-                        <th>Hire Date</th>
-                        <th>Salary</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                    </tr>
-                </thead>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Genger</th>
+            <th>Birth Date</th>
+            <th>Hire Date</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Position</th>
+        </tr>
+        </thead>
 
-                <tbody>
-                    <tr>
-                        <!-- employee id -->
-                        <td></td> 
-                        <!-- ชื่อ นามสกุล -->
-                        <td></td>
-                        <!-- เพศ -->
-                        <td></td>
-                        <!-- วันเกิด -->
-                        <td></td>
-                        <!-- วันเริ่มงาน -->
-                        <td></td>
-                        <!-- เงินเดือน -->
-                        <td></td>
-                        <!-- แผนก -->
-                        <td></td>
-                        <!-- ตำแหน่งงาน -->
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-    </body>
+        <tbody>
+        {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                <td>{{ employee.gender }}</td>
+                <td>{{ employee.birth_date }}</td>
+                <td>{{ employee.hire_date }}</td>
+                <td>{{ employee.salary }}</td>
+                <td>{{ employee.department.name }}</td>
+                <td>{{ employee.position.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
 
 </html>

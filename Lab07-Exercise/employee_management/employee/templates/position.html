@@ -76,25 +76,27 @@
 </head>
 
 <body>
-    {% include 'nav.html' %}
+{% include 'nav.html' %}
 
-    <main>
-        <div class="head">
-            <h1>Position</h1>
-        </div>
-        
-        <!-- กำหนด if และ for ให้ถูกต้อง -->
-        <div class="itemGroup">
+<main>
+    <div class="head">
+        <h1>Position</h1>
+    </div>
+
+    <!-- กำหนด if และ for ให้ถูกต้อง -->
+    <div class="itemGroup">
+        {% for position in positions %}
             <div class="item">
                 <!-- position id และ ชื่อตำแหน่ง -->
-                <div>{{}}. {{}}</div>
+                <div>{{ forloop.counter }}. {{ position.name }}</div>
 
                 <!-- จำนวนพนักงานทั้งหมด -->
-                <div class="action">{{}} People</div>
+                <div class="action">{{ position.num_employees }} People</div>
             </div>
-        </div>
+        {% endfor %}
+    </div>
 
-    </main>
+</main>
 </body>
 
 </html>
