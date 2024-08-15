@@ -64,7 +64,6 @@ class ProjectDetailView(View):
         if 'add_user' in request.path_info:
             project = Project.objects.get(pk=project_id)
             data = json.loads(request.body).get('emp_id')
-
             employee = Employee.objects.get(pk=data)
             project.staff.add(employee)
             return JsonResponse({'status': 'ok'}, status=200)
@@ -73,6 +72,10 @@ class ProjectDetailView(View):
             data = json.loads(request.body).get('emp_id')
             employee = Employee.objects.get(pk=data)
             project.staff.remove(employee)
+            return JsonResponse({'status': 'ok'}, status=200)
+        elif 'delete_project' in request.path_info:
+            project = Project.objects.get(pk=project_id)
+            project.delete()
             return JsonResponse({'status': 'ok'}, status=200)
         else:
             return JsonResponse({'error': 'Invalid action'}, status=400)
