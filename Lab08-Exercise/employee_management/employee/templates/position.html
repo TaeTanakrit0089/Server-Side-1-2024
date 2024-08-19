@@ -1,29 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Position</title>
-</head>
+{% block title %}Position{% endblock %}
 
-<body>
+{% block content %}
     <main>
         <div class="head">
             <h1>Position</h1>
         </div>
-        
-        <!-- กำหนด if และ for ให้ถูกต้อง -->
-        <div class="itemGroup">
-            <div class="item">
-                <!-- position id และ ชื่อตำแหน่ง -->
-                <div>{{}}. {{}}</div>
 
-                <!-- จำนวนพนักงานทั้งหมด -->
-                <div class="action">{{}} People</div>
-            </div>
+        <div class="itemGroup">
+            {% for position in positions %}
+                <div class="item">
+                    <div>{{ position.id }}. {{ position.name }}</div>
+                    <div class="action">{{ position.employee_count }} People</div>
+                </div>
+            {% endfor %}
         </div>
     </main>
-</body>
-
-</html>
+{% endblock %}

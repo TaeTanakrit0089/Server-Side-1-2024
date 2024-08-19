@@ -1,38 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
-</head>
+{% block title %}Project{% endblock %}
 
-<body>
-
+{% block content %}
     <main>
         <div class="head">
             <h1>Project</h1>
         </div>
 
         <div class="itemGroup">
-            
-            <div class="item">
-                <!-- โปรเจค id และ ชื่อ -->
-                <div>{{}}</div>
+            {% for project in projects %}
+                <div class="item">
+                    <!-- โปรเจค id และ ชื่อ -->
+                    <div>{{ project.id }}.{{ project.name }}</div>
 
-                <!-- วันเริ่ม และ วันกำหนดส่งโปรเจค -->
-                <div>{{}} - {{}}</div>
+                    <!-- วันเริ่ม และ วันกำหนดส่งโปรเจค -->
+                    <div>{{ project.start_date }} - {{ project.due_date }}</div>
 
-                <div class="action">
-                    <!-- กำหนด path ให้ถูกต้อง -->
-                    <a href="/" class="edit btn">แก้ไข</a>
-                    
-                    <!-- ถ้า code มันแจ้งเตือนอะไรก็ปล่อยไปนะครับไม่มีผลอะไร  -->
-                    <!-- deleteProject(projectId ,csrf_token) -->
-                    <button type="submit" onclick="deleteProject()" class="delete">Delete</button>
+                    <div class="action">
+                        <!-- กำหนด path ให้ถูกต้อง -->
+                        <a href="{% url 'project_details' project.id %}" class="edit btn">แก้ไข</a>
+
+                        <!-- ถ้า code มันแจ้งเตือนอะไรก็ปล่อยไปนะครับไม่มีผลอะไร  -->
+                        <button type="submit" onclick="deleteProject({{ project.id }})" class="delete">Delete</button>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
+
         </div>
     </main>
-</body>
-</html>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function deleteProject(pro_id) {
+            const data = {project_id: pro_id};
+            fetch(`{% url 'project' %}${pro_id}/delete_project/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Item deleted successfully')
+                    window.location.reload()
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}
