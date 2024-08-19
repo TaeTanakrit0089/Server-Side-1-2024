@@ -1,16 +1,17 @@
-
-function deleteProject(pro_id, csrf_token) {
-    // กำหนด path ให้ถูกต้อง
-    fetch(``, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrf_token,
-      },
+function deleteProject(pro_id, url, token) {
+    const data = {project_id: pro_id};
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': token
+        },
+        body: JSON.stringify(data)
     })
-      .then((data) => {
-        console.log("Item deleted successfully");
-        window.location.reload();
-      })
-      .catch((error) => console.error("Error:", error));
-  }
+        .then(response => response.json())
+        .then(data => {
+            console.log('Item deleted successfully')
+            window.location.reload()
+        })
+        .catch(error => console.error('Error:', error));
+}

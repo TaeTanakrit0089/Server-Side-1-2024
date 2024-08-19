@@ -1,4 +1,6 @@
 {% extends 'layout.html' %}
+{% load static %}
+
 
 {% block title %}Project {project.id} Details{% endblock %}
 
@@ -53,7 +55,9 @@
                 <div class="action">
                     <div id="add-staff">
                         <input type="text" name="emp_id" id="input-add-staff" placeholder="EMPLOYEE ID">
-                        <button type="submit" onclick="addStaff()">ADD</button>
+                        <button type="submit" onclick="addStaff(document.getElementById('input-add-staff'),`
+                                {% url 'project' %}{{ project.id }}/add_user`, '{{ csrf_token }}')">ADD
+                        </button>
                     </div>
                 </div>
             </div>
@@ -68,7 +72,9 @@
                         <div class="action">
 
                             <!-- function removeStaff ให้ส่ง id ของพนักงาน เช่น removeStaff(Number('{{ staff.id }}'))-->
-                            <button type="submit" class="delete" onclick="removeStaff({{ staff.id }})">Kick this Staff
+                            <button type="submit" class="delete" onclick="removeStaff({{ staff.id }},
+                                    '{% url 'project' %}{{ project.id }}/remove_user/', '{{ csrf_token }}')">Kick this
+                                Staff
                             </button>
 
                         </div>
@@ -82,45 +88,5 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-        function addStaff() {
-            const emp = document.getElementById('input-add-staff');
-            const data = {emp_id: emp.value};
-
-            // กำหนด path ให้ถูกต้อง
-            fetch(`{% url 'project' %}{{project.id}}/add_user`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Item updated successfully')
-                    window.location.reload()
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        async function removeStaff(emp_Id) {
-            const data = {emp_id: emp_Id};
-            // กำหนด path ให้ถูกต้อง
-            fetch(`{% url 'project' %}{{project.id}}/remove_user/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Item updated successfully')
-                    window.location.reload()
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+    <script src="{% static 'manage_staff.js' %}"></script>
 {% endblock %}

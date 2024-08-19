@@ -22,7 +22,10 @@
                         <a href="{% url 'project_details' project.id %}" class="edit btn">แก้ไข</a>
 
                         <!-- ถ้า code มันแจ้งเตือนอะไรก็ปล่อยไปนะครับไม่มีผลอะไร  -->
-                        <button type="submit" onclick="deleteProject({{ project.id }})" class="delete">Delete</button>
+                        <button type="submit" onclick="deleteProject({{ project.id }},
+                                '{% url 'project' %}{{ project.id }}/delete_project/', '{{ csrf_token }}')" class="delete">
+                            Delete
+                        </button>
                     </div>
                 </div>
             {% endfor %}
@@ -33,22 +36,6 @@
 
 {% block script %}
     <script>
-        function deleteProject(pro_id) {
-            const data = {project_id: pro_id};
-            fetch(`{% url 'project' %}${pro_id}/delete_project/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Item deleted successfully')
-                    window.location.reload()
-                })
-                .catch(error => console.error('Error:', error));
-        }
+
     </script>
 {% endblock %}
