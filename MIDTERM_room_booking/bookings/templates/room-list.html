@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room List</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+</head>
+<body>
+<section class="section">
+    <h1 class="title" id="title">Room List ({{ all_rooms }} rooms)</h1>
+</section>
+<div class="container">
+    <table class="table" id="datatable">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Capacity</th>
+            <th>Room Type(s)</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.number }}</td>
+                <td>{{ room.name }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>{{ room.room_types.all|join:", " }}</td>
+                <td><a class="button is-warning" href="{% url 'booking-list' %}create/{{ room.id }}">Book Room</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
