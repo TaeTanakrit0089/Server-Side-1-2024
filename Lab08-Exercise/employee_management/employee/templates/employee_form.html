@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title%} Create Employee {% endblock %}
+{% block title %} Create Employee {% endblock %}
 
-{% block head%}
-<h1>Form Employee</h1>
+{% block head %}
+    <h1>Form Employee</h1>
 {% endblock %}
 
 {% block content %}
-<div class="emp-form-box">
-  <form method="post">
-    {% csrf_token %}
-    <!-- เรียกใช้ form -->
-    <button type="submit">Save</button>
-  </form>
-</div>
+    <div class="emp-form-box">
+        <form method="post">
+            {% csrf_token %}
+            <!-- เรียกใช้ form -->
+            <button type="submit">Save</button>
+        </form>
+    </div>
 
 {% endblock %}
