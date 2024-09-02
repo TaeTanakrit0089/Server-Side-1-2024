@@ -4,8 +4,7 @@
 
 ## Setup
 
-- หากมี project ของ week 8 สามารถใช้ในการทำแบบฝึกหัดครังนี้ต่อได้ครับ (แก้ไขไฟล์ models.py ให้ copy code
-  ข้างล่างไปใส่ที่ไฟล์ `employee/models.py`)
+- หากมี project ของ week 8 สามารถใช้ในการทำแบบฝึกหัดครังนี้ต่อได้ครับ (แก้ไขไฟล์ models.py ให้ copy code ข้างล่างไปใส่ที่ไฟล์ `employee/models.py`)
 - ให้นักศึกษาลากโฟลเดอร์ templates ใน excercise ไปไว้ที่โฟลเดอร์ employee ขอโปรเจคนักศึกษา
 
     ```text
@@ -39,7 +38,7 @@
     - salary
     - position
 
-   โดยให้คล้ายกับ model `Employee`
+    โดยให้คล้ายกับ model `Employee`
 
     ```python
     class Employee(models.Model):
@@ -105,15 +104,12 @@ class MyForm(forms.Form):
 
 **Hint:** สังเกตว่ามี field ที่เป็นการเลือกวันที่ (date picker) คือ Birthdate และ Hiredate
 
-ควรใช้งาน `DateField` และ widget `DateInput` (สังเกตว่า Django จะ render `<input type="text">` แต่เราอยากได้เป็น
-`type=date`)
+ควรใช้งาน `DateField` และ widget `DateInput` (สังเกตว่า Django จะ render `<input type="text">` แต่เราอยากได้เป็น `type=date`)
 
-2. ในไฟล์ `employee.html` กำหนด path ให้กับปุ่ม "New Employee" ไปยังหน้า form เพิ่มข้อมูลพนักงานที่ไฟล์
-   `employee_form.html` แสดงผลหน้า form ถูกต้องดังภาพ (0.5 คะแนน)
+2. ในไฟล์ `employee.html` กำหนด path ให้กับปุ่ม "New Employee" ไปยังหน้า form เพิ่มข้อมูลพนักงานที่ไฟล์ `employee_form.html` แสดงผลหน้า form ถูกต้องดังภาพ (0.5 คะแนน)
 
 ![emp-form](images/form_emp.png)
 
-3. เมื่อกด "Save" ในหน้า `employee_form.html` ให้บันทึกข้อมูลพนักงานใหม่ลงฐานข้อมูล หลังจากบันทึกสำเร็จให้ redirect
-   กลับไปที่หน้าตารางพนักงาน โดยที่หน้าพนักงานเรียงข้อมูลจากวันที่เริ่มงาน (hire date) จากมากไปน้อย (0.5 คะแนน)
+3. เมื่อกด "Save" ในหน้า `employee_form.html` ให้บันทึกข้อมูลพนักงานใหม่ลงฐานข้อมูล หลังจากบันทึกสำเร็จให้ redirect กลับไปที่หน้าตารางพนักงาน โดยที่หน้าพนักงานเรียงข้อมูลจากวันที่เริ่มงาน (hire date) จากมากไปน้อย (0.5 คะแนน)
 
 ![emp-tb](images/emp-table.png)
