@@ -1,6 +1,5 @@
 import json
 
-from django import forms
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
 from django.http import Http404, JsonResponse
@@ -85,6 +84,3 @@ class ProjectDetailView(View):
         project = Project.objects.get(pk=project_id)
         project.delete()
         return JsonResponse({'status': 'ok'}, status=200)
-
-
-
