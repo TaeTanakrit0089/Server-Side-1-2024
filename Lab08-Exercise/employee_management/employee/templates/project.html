@@ -23,7 +23,8 @@
 
                         <!-- ถ้า code มันแจ้งเตือนอะไรก็ปล่อยไปนะครับไม่มีผลอะไร  -->
                         <button type="submit" onclick="deleteProject({{ project.id }},
-                                '{% url 'project' %}{{ project.id }}/delete_project/', '{{ csrf_token }}')" class="delete">
+                                '{% url 'project' %}{{ project.id }}/delete_project/', '{{ csrf_token }}')"
+                                class="delete">
                             Delete
                         </button>
                     </div>
