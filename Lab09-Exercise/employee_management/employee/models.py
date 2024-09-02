@@ -67,4 +67,3 @@ class Project(models.Model):
     due_date = models.DateField()
     start_date = models.DateField()
     staff = models.ManyToManyField("employee.Employee")
-   
