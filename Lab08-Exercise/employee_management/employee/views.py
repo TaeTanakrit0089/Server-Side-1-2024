@@ -3,9 +3,10 @@ import json
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
 from django.http import Http404, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
+from .forms import EmployeeForm
 from .models import *
 
 
@@ -84,3 +85,32 @@ class ProjectDetailView(View):
         project = Project.objects.get(pk=project_id)
         project.delete()
         return JsonResponse({'status': 'ok'}, status=200)
+
+
+class NewEmployee(View):
+    def get(self, request):
+        form = EmployeeForm()
+        return render(request, 'employee_form.html', {'form': form})
+
+    def post(self, request):
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            gender = form.cleaned_data['gender']
+            birth_date = form.cleaned_data['birth_date']
+            hire_date = form.cleaned_data['hire_date']
+            salary = form.cleaned_data['salary']
+            position = form.cleaned_data['position']
+
+            new_employee = Employee(
+                first_name=first_name,
+                last_name=last_name,
+                gender=gender,
+                birth_date=birth_date,
+                hire_date=hire_date,
+                salary=salary,
+                position=Position.objects.get(name=position)
+            )
+            new_employee.save()
+        return redirect('employee')

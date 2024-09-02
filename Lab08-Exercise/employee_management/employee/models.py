@@ -53,6 +53,9 @@ class Position(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Project(models.Model):
     name = models.CharField(max_length=255)

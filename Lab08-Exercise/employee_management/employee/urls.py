@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import NewEmployee
 
 urlpatterns = [
     # ex: /polls/
@@ -13,5 +14,6 @@ urlpatterns = [
          name='project_details_remove_user'),
     path('project/<int:project_id>/delete_project/', views.ProjectDetailView.as_view(),
          name='project_details_remove_project'),
+    path('new_employee/', NewEmployee.as_view(), name="new_employee"),
 
 ]
