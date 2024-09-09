@@ -6,7 +6,7 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import EmployeeForm
+from .forms import EmployeeForm, ProjectForm
 from .models import *
 
 
@@ -98,3 +98,17 @@ class NewEmployee(View):
             form.save()
             return redirect('employee')
         return render(request, 'employee_form.html', {'form': form})
+
+
+class NewProject(View):
+    def get(self, request):
+        form = ProjectForm()
+        return render(request, 'project_form.html', {'form': form})
+
+    def post(self, request):
+        form = ProjectForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project')
+        return render(request, 'project_form.html', {'form': form})

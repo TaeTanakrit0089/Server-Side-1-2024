@@ -24,6 +24,9 @@ class Employee(models.Model):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+    def __str__(self):
+        return self.get_full_name()
+
 
 class EmployeeAddress(models.Model):
     employee = models.OneToOneField("employee.Employee", on_delete=models.PROTECT)
@@ -67,6 +70,6 @@ class Project(models.Model):
         blank=True,
         related_name="project_mamager"
     )
-    due_date = models.DateField()
     start_date = models.DateField()
+    due_date = models.DateField()
     staff = models.ManyToManyField("employee.Employee")

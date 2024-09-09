@@ -12,8 +12,8 @@
             <div>
                 <br>
                 <!-- กำหนด path ไปยังหน้า form สร้าง project -->
-                <a href="#">
-                    <button class="newemp">New Project</button>
+                <a href="{% url 'new_project' %}">
+                    <button class="newemp" onclick="">New Project</button>
                 </a>
             </div>
             {% for project in projects %}

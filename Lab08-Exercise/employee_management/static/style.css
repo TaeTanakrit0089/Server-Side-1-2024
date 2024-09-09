@@ -103,7 +103,7 @@ th {
 .errorlist {
     color: #a52d2a;
     list-style-type: none; /* Remove bullet points */
-    padding: 22px;
+    padding: 12px 22px;
     margin-top: 5px; /* Add some spacing */
     font-weight: bold;
     font-size: larger;

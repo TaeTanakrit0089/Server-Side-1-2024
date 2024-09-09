@@ -3,7 +3,7 @@ from datetime import date
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Employee
+from .models import Employee, Project
 
 
 class EmployeeForm(forms.ModelForm):
@@ -34,3 +34,23 @@ class EmployeeForm(forms.ModelForm):
             self.add_error(None, ValidationError("Hire date cannot be in the future."))
 
         return cleaned_data
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description', 'manager', 'due_date', 'start_date']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Project Name'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description'}),
+            'manager': forms.Select(attrs={'class': 'form-control'}),
+            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'due_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+        }
+
+    def clean_start_date(self):
+        start_date = self.cleaned_data.get('start_date')
+        due_date = self.cleaned_data.get('due_date')
+        if start_date >= due_date:
+            raise ValidationError("Start date be the day before due date.")
+        return start_date
