@@ -107,8 +107,26 @@ class NewProject(View):
 
     def post(self, request):
         form = ProjectForm(request.POST)
-        print(request.POST)
         if form.is_valid():
             form.save()
             return redirect('project')
         return render(request, 'project_form.html', {'form': form})
+
+
+class UpdateProject(View):
+    def get(self, request, project_id):
+        project = Project.objects.get(pk=project_id)
+        form = ProjectForm(instance=project)
+        return render(request, 'project_detail.html', {'form': form, 'project': project})
+
+    def post(self, request, project_id):
+        project = Project.objects.get(pk=project_id)
+        form = ProjectForm(request.POST, instance=project)  # Pass 'instance=project' here!
+
+        if form.is_valid():
+            project = form.save()
+            # staff_ids = form.cleaned_data.get('staff', [])
+            # project.staff.set(staff_ids)
+            return redirect('project_details', project_id=project.id)  # make sure your url name is correct
+
+        return render(request, 'project_detail.html', {'form': form, 'project': project})
