@@ -33,7 +33,7 @@ class EmployeeForm(forms.Form):
         initial=datetime.today()
     )
     salary = forms.DecimalField(
-        widget=forms.NumberInput(attrs={'type': 'number', 'class': 'form-control'}),
+        widget=forms.NumberInput(attrs={'class': 'form-control'}),
         initial=0
     )
     position = forms.ModelChoiceField(

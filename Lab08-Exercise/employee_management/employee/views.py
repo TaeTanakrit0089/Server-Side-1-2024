@@ -110,7 +110,7 @@ class NewEmployee(View):
                 birth_date=birth_date,
                 hire_date=hire_date,
                 salary=salary,
-                position=Position.objects.get(name=position)
+                position=position
             )
             new_employee.save()
         return redirect('employee')
