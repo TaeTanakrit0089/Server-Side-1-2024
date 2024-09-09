@@ -95,22 +95,6 @@ class NewEmployee(View):
     def post(self, request):
         form = EmployeeForm(request.POST)
         if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            gender = form.cleaned_data['gender']
-            birth_date = form.cleaned_data['birth_date']
-            hire_date = form.cleaned_data['hire_date']
-            salary = form.cleaned_data['salary']
-            position = form.cleaned_data['position']
-
-            new_employee = Employee(
-                first_name=first_name,
-                last_name=last_name,
-                gender=gender,
-                birth_date=birth_date,
-                hire_date=hire_date,
-                salary=salary,
-                position=position
-            )
-            new_employee.save()
-        return redirect('employee')
+            form.save()
+            return redirect('employee')
+        return render(request, 'employee_form.html', {'form': form})
