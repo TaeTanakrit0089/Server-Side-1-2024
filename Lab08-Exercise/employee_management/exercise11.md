@@ -176,7 +176,7 @@ class CompanyRouter:
     1. run command `python manage.py makemigrations`
     2. run command `python manage.py migrate` (สังเกตว่าตาราง company_department และ ตาราง company_position จะไม่ถูก migrate ลง `employee_db`)
     3. run comment `python manage.py migrate --database=db2 company` (สังเกตว่าตาราง company_department และ ตาราง company_position จะถูกสร้างใน database `company_db`)
-    4. import ข้อมูลในไฟล์ employee_db.sql ลงใน `employee_db` และ import ข้อมูลใน company_db.sql ลงใน `company_db`
+    4. import ข้อมูลในไฟล์ old_employee_db.sql ลงใน `employee_db` และ import ข้อมูลใน company_db.sql ลงใน `company_db`
 
 2.3 แก้ไขให้หน้า employee list และ employee form สำหรับสร้าง employee ใช้งานได้เหมือนเดิม (1 คะแนน)
 

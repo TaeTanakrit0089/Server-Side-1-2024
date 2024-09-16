@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import company
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,6 +74,7 @@ WSGI_APPLICATION = 'employee_management.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+DATABASE_ROUTERS = ['company.routers.CompanyRouter']
 
 DATABASES = {
     "default": {
@@ -80,6 +83,14 @@ DATABASES = {
         "USER": "tae",
         "PASSWORD": "",
         "HOST": "localhost",
+        "PORT": "5432",
+    },
+    "db2": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "company_db",
+        "USER": "tae",
+        "PASSWORD": "",
+        "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }

@@ -7,6 +7,7 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+from company.models import Position
 from .forms import EmployeeForm, ProjectForm, EmployeeAddressForm
 from .models import *
 
