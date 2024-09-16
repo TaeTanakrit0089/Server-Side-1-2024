@@ -16,7 +16,7 @@ class EmployeeView(View):
     def get(self, request):
         employees = Employee.objects.all()
         for employee in employees:
-            employee.position = Position.objects.using("db2").get(pk=employee.position_id)
+            employee.position = Position.objects.get(pk=employee.position_id)
         context = {
             "employees": employees,
             "total_employees": len(employees),
@@ -26,7 +26,7 @@ class EmployeeView(View):
 
 class PositionView(View):
     def get(self, request):
-        positions = Position.objects.using("db2").annotate(num_employees=Count('employee')).order_by('id')
+        positions = Position.objects.annotate(num_employees=Count('employee')).order_by('id')
 
         context = {
             "positions": positions,
