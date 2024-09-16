@@ -3,7 +3,7 @@ from datetime import date
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Employee, Project
+from .models import Employee, Project, EmployeeAddress
 
 
 class EmployeeForm(forms.ModelForm):
@@ -34,6 +34,18 @@ class EmployeeForm(forms.ModelForm):
             self.add_error(None, ValidationError("Hire date cannot be in the future."))
 
         return cleaned_data
+
+
+class EmployeeAddressForm(forms.ModelForm):
+    class Meta:
+        model = EmployeeAddress
+        fields = ['location', 'district', 'province', 'postal_code']
+        widgets = {
+            'location': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'district': forms.TextInput(attrs={'class': 'form-control'}),
+            'province': forms.TextInput(attrs={'class': 'form-control'}),
+            'postal_code': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class ProjectForm(forms.ModelForm):

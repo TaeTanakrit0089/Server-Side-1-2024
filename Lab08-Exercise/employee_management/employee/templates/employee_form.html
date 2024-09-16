@@ -12,7 +12,10 @@
         <form method="post">
             {% csrf_token %}
             <div style="margin-left: 20px; margin-top: 20px">
-                {{ form }}
+                {{ employee_form.as_div }}
+            </div>
+            <div style="margin-left: 20px; margin-top: 20px">
+                {{ address_form.as_div }}
             </div>
             <br>
             <button type="submit">Save</button>
