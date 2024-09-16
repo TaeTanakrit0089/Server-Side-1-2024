@@ -7,7 +7,7 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from company.models import Position
+from company.models import Position, Department
 from .forms import EmployeeForm, ProjectForm, EmployeeAddressForm
 from .models import *
 
@@ -15,7 +15,8 @@ from .models import *
 class EmployeeView(View):
     def get(self, request):
         employees = Employee.objects.all()
-
+        for employee in employees:
+            employee.position = Position.objects.using("db2").get(pk=employee.position_id)
         context = {
             "employees": employees,
             "total_employees": len(employees),
@@ -25,7 +26,7 @@ class EmployeeView(View):
 
 class PositionView(View):
     def get(self, request):
-        positions = Position.objects.annotate(num_employees=Count('employee')).order_by('id')
+        positions = Position.objects.using("db2").annotate(num_employees=Count('employee')).order_by('id')
 
         context = {
             "positions": positions,
@@ -90,13 +91,13 @@ class ProjectDetailView(View):
 
 
 class NewEmployee(View):
-    @transaction.atomic
     def get(self, request):
         employee_form = EmployeeForm()
         address_form = EmployeeAddressForm()
         return render(request, 'employee_form.html',
                       {'employee_form': employee_form, 'address_form': address_form})
 
+    @transaction.atomic
     def post(self, request):
         employee_form = EmployeeForm(request.POST)
         address_form = EmployeeAddressForm(request.POST)

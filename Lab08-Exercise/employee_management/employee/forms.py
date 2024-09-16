@@ -3,13 +3,16 @@ from datetime import date
 from django import forms
 from django.core.exceptions import ValidationError
 
+from company.models import Position
 from .models import Project, EmployeeAddress, Employee
 
 
 class EmployeeForm(forms.ModelForm):
+    position_id = forms.ModelChoiceField(queryset=Position.objects.using("db2").all(), empty_label=None)
+
     class Meta:
         model = Employee
-        fields = ['first_name', 'last_name', 'gender', 'birth_date', 'hire_date', 'salary']
+        fields = ['first_name', 'last_name', 'gender', 'birth_date', 'hire_date', 'salary', 'position_id']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
@@ -17,7 +20,7 @@ class EmployeeForm(forms.ModelForm):
             'birth_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'hire_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'salary': forms.NumberInput(attrs={'class': 'form-control'}),
-            # 'position': forms.Select(attrs={'class': 'form-control'}),
+            # เอา position_id ออกจาก widgets
         }
 
     # def clean_hire_date(self):
@@ -28,8 +31,15 @@ class EmployeeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        hire_date = cleaned_data.get('hire_date')
 
+        # Position
+        position = cleaned_data.get("position_id")
+        if position:
+            cleaned_data["position_id"] = position.id  # บันทึกเป็น integer
+        return cleaned_data
+
+        # Hire Date
+        hire_date = cleaned_data.get('hire_date')
         if hire_date and hire_date > date.today():
             self.add_error(None, ValidationError("Hire date cannot be in the future."))
 

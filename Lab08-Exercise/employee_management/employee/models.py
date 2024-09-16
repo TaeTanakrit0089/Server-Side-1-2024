@@ -14,7 +14,7 @@ class Employee(models.Model):
     birth_date = models.DateField()
     hire_date = models.DateField()
     salary = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    position_id = models.IntegerField(null=True)  # Change from ForeignKey to IntegerField
+    position_id = models.IntegerField(null=True)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
