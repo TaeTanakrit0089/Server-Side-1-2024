@@ -1,5 +1,6 @@
 import json
 
+from django.db import transaction
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
 from django.http import Http404, JsonResponse
@@ -16,7 +17,7 @@ class EmployeeView(View):
 
         context = {
             "employees": employees,
-            "total_employees": len(employees)
+            "total_employees": len(employees),
         }
         return render(request, "employee.html", context)
 
@@ -88,6 +89,7 @@ class ProjectDetailView(View):
 
 
 class NewEmployee(View):
+    @transaction.atomic
     def get(self, request):
         employee_form = EmployeeForm()
         address_form = EmployeeAddressForm()
