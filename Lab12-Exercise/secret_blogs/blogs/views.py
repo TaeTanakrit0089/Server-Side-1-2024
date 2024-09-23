@@ -1,16 +1,8 @@
 from django import views
-
-
-def is_my_blog(user, author):
-    if user == author:
-        return True
-    return False
-
-
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import BlogForm
 from .models import Blog

@@ -16,6 +16,7 @@ class LoginView(View):
             login(request, user)
             return redirect('blog-list')
 
+
         return render(request, 'login.html', {"form": form})
 
 

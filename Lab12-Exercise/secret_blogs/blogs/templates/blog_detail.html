@@ -8,11 +8,11 @@
                 <div id="view-mode">
                     <div class="d-flex justify-content-between">
                         <h1 class="mb-4">{{ blog.title }}</h1>
-                        <!-- 
-                            ซ่อนปุ่ม สร้าง blog และปุ่มสร้าง category ให้แสดงเฉพาะ role ที่มีสิทธิ์เท่านั้น 
+                        <!--
+                            ซ่อนปุ่ม สร้าง blog และปุ่มสร้าง category ให้แสดงเฉพาะ role ที่มีสิทธิ์เท่านั้น
                             และให้่แสดงเฉพาะ ปุ่มแก้ไข/ลบ เฉพาะ user ที่เป็นเข้าของ blog เท่านั้น
                             และแสดงปุ่มลบเฉพาะ user ที่มีสิิทธิ์ Admin
-    
+
                            ** Hitt: user.is_staff, user == author
                         -->
                         <div class="btn-group">
@@ -22,7 +22,7 @@
                                     <a href="{% url 'blog-delete' blog.id %}"
                                        style="text-decoration: none; color:antiquewhite">Delete</a>
                                 </button>
-                            {% elif user.is_staff %}
+                            {% elif user == blog.author or perms.blogs.delete_blog %}
                                 <button class="btn sm btn-danger m-2">
                                     <a href="{% url 'blog-delete' blog.id %}"
                                        style="text-decoration: none; color:antiquewhite">Delete</a>
