@@ -22,7 +22,7 @@
                                     <a href="{% url 'blog-delete' blog.id %}"
                                        style="text-decoration: none; color:antiquewhite">Delete</a>
                                 </button>
-                            {% elif user == blog.author or perms.blogs.delete_blog %}
+                            {% elif user.is_staff and perms.blogs.delete_blog %}
                                 <button class="btn sm btn-danger m-2">
                                     <a href="{% url 'blog-delete' blog.id %}"
                                        style="text-decoration: none; color:antiquewhite">Delete</a>
