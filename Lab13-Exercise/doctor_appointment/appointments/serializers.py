@@ -30,13 +30,14 @@ class PatientSerializer(serializers.ModelSerializer):
         ]
 
 
-class AppointmentSerializer(serializers.ModelSerializer):
+class AppointmentSerializerWrite(serializers.ModelSerializer):
     doctor = serializers.PrimaryKeyRelatedField(queryset=Doctor.objects.all())
     patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
 
     class Meta:
         model = Appointment
         fields = [
+            'id',
             'doctor',
             'patient',
             'date',
@@ -49,3 +50,12 @@ class AppointmentSerializer(serializers.ModelSerializer):
         if make_aware(appointment_datetime) <= timezone.now():
             raise ValidationError("The appointment date or time must be in the future.")
         return data
+
+
+class AppointmentSerializerRetrieve(serializers.ModelSerializer):
+    doctor = DoctorSerializer(read_only=True)
+    patient = PatientSerializer(read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = ['id', 'doctor', 'patient', 'date', 'at_time', 'details', ]
