@@ -9,53 +9,25 @@ from appointments.models import Doctor, Patient, Appointment
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = [
-            "id",
-            "name",
-            "specialization",
-            "phone_number",
-            "email"
-        ]
+        fields = ["id", "name", "specialization", "phone_number", "email"]
 
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
-        fields = [
-            "id",
-            "name",
-            "phone_number",
-            "email",
-            "address"
-        ]
+        fields = ["id", "name", "phone_number", "email", "address"]
 
 
-class AppointmentSerializerWrite(serializers.ModelSerializer):
-    doctor = serializers.PrimaryKeyRelatedField(queryset=Doctor.objects.all())
-    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+class AppointmentSerializer(serializers.ModelSerializer):
+    doctor_details = DoctorSerializer(read_only=True, source='doctor')
+    patient_details = PatientSerializer(read_only=True, source='patient')
 
     class Meta:
         model = Appointment
-        fields = [
-            'id',
-            'doctor',
-            'patient',
-            'date',
-            'at_time',
-            'details',
-        ]
+        fields = ['id', 'doctor', 'patient', 'date', 'at_time', 'details', 'doctor_details', 'patient_details']
 
     def validate(self, data):
         appointment_datetime = timezone.datetime.combine(data['date'], data['at_time'])
         if make_aware(appointment_datetime) <= timezone.now():
             raise ValidationError("The appointment date or time must be in the future.")
         return data
-
-
-class AppointmentSerializerRetrieve(serializers.ModelSerializer):
-    doctor = DoctorSerializer(read_only=True)
-    patient = PatientSerializer(read_only=True)
-
-    class Meta:
-        model = Appointment
-        fields = ['id', 'doctor', 'patient', 'date', 'at_time', 'details', ]
