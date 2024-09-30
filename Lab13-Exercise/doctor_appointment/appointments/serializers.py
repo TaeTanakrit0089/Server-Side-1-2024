@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django.utils.timezone import make_aware
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -30,8 +31,8 @@ class PatientSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    doctor = DoctorSerializer(read_only=True)
-    patient = PatientSerializer(read_only=True)
+    doctor = serializers.PrimaryKeyRelatedField(queryset=Doctor.objects.all())
+    patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
 
     class Meta:
         model = Appointment
@@ -45,6 +46,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         appointment_datetime = timezone.datetime.combine(data['date'], data['at_time'])
-        if appointment_datetime <= timezone.now():
-            raise ValidationError("Data Time Error")
+        if make_aware(appointment_datetime) <= timezone.now():
+            raise ValidationError("The appointment date or time must be in the future.")
         return data
