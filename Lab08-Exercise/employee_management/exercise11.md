@@ -2,7 +2,8 @@
 
 ## Part 1: Database Transaction
 
-1.1 ให้ทำการเพิ่ม field ใน form `EmployeeForm` สำหรับข้อมูล `EmployeeAddress` (ดังใน code ด้านล่าง) จากนั้นแก้ไข view สร้าง employee ให้บันทึกข้อมูลลงทั้งในตาราง `employee_employee` และ `employee_employeeaddress` (0.5 คะแนน)
+1.1 ให้ทำการเพิ่ม field ใน form `EmployeeForm` สำหรับข้อมูล `EmployeeAddress` (ดังใน code ด้านล่าง) จากนั้นแก้ไข view
+สร้าง employee ให้บันทึกข้อมูลลงทั้งในตาราง `employee_employee` และ `employee_employeeaddress` (0.5 คะแนน)
 
 ```python
 class EmployeeForm(forms.ModelForm):
@@ -32,17 +33,19 @@ class EmployeeForm(forms.ModelForm):
         }
 ```
 
-1.2 แสดงข้อมูลในหน้า list employees โดยเพิ่ม 2 columns ได้แก่ "location" (`EmployeeAddress.location`) และ "province" (`EmployeeAddress.province`) (0.25 คะแนน)
+1.2 แสดงข้อมูลในหน้า list employees โดยเพิ่ม 2 columns ได้แก่ "location" (`EmployeeAddress.location`) และ "province" (
+`EmployeeAddress.province`) (0.25 คะแนน)
 
 ![img1-2](../../../../../Downloads/django-week11-main/exercise/images/img1-2.png)
 
-1.3 เนื่องจากมีการ insert ข้อมูลลงใน 2 ตารางต่อเนื่องกัน ให้ใช้งาน database transaction ใน view สร้าง employee (0.25 คะแนน)
+1.3 เนื่องจากมีการ insert ข้อมูลลงใน 2 ตารางต่อเนื่องกัน ให้ใช้งาน database transaction ใน view สร้าง employee (0.25
+คะแนน)
 
 **Hint:** ใช้เป็น block `with transaction.atomic()` หรือ decorator `@transaction.atomic`
 
 ## Part 2: Multiple Databases
 
-ใน Part 2 เราจะมาลองใช้งาน multiple databases 
+ใน Part 2 เราจะมาลองใช้งาน multiple databases
 
 ก่อนเริ่มทำแบบฝึกหัดให้ทำตามขั้นตอนดังนี้
 
@@ -180,7 +183,8 @@ class CompanyRouter:
 
 2.3 แก้ไขให้หน้า employee list และ employee form สำหรับสร้าง employee ใช้งานได้เหมือนเดิม (1 คะแนน)
 
-**Hint:** สำหรับหน้า employee list จะเห็นว่าไม่มีข้อมูลใน columns `Depatment` และ `Position` เราจะต้องไป query มาเองเนื่องจากพอเป็นคนละ database ตัว Django จะไม่สามารถ join ให้อัตโนมัติได้ 
+**Hint:** สำหรับหน้า employee list จะเห็นว่าไม่มีข้อมูลใน columns `Depatment` และ `Position` เราจะต้องไป query
+มาเองเนื่องจากพอเป็นคนละ database ตัว Django จะไม่สามารถ join ให้อัตโนมัติได้
 
 ```python
 # ตัวอย่างที่แทบจะเหมือนเฉลย...
@@ -189,4 +193,6 @@ for employee in employees:
     employee.position = Position.objects.get(pk=employee.position_id)
 ```
 
-**Hint:** สำหรับ `EmployeeForm` ที่ก่อนนี้สามารถแค่กำหนดใช้ field `position` ซึ่งเดิมเป็น `ForiegnKey` แล้ว form จะ render เป็น drop down list รายชื่อ position มาเลย ตอนนี้กลายเป็น `IntegerField` แล้ว ดังนั้นจะต้องใช้ `forms.ModelChoiceField`
+**Hint:** สำหรับ `EmployeeForm` ที่ก่อนนี้สามารถแค่กำหนดใช้ field `position` ซึ่งเดิมเป็น `ForiegnKey` แล้ว form จะ
+render เป็น drop down list รายชื่อ position มาเลย ตอนนี้กลายเป็น `IntegerField` แล้ว ดังนั้นจะต้องใช้
+`forms.ModelChoiceField`

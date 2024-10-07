@@ -1,9 +1,8 @@
+from appointments.models import Doctor, Patient, Appointment
 from django.utils import timezone
 from django.utils.timezone import make_aware
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-
-from appointments.models import Doctor, Patient, Appointment
 
 
 class DoctorSerializer(serializers.ModelSerializer):

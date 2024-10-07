@@ -1,13 +1,12 @@
 # Create your views here.
+from bookings.forms import BookingForm
+from bookings.models import Booking
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
-
-from bookings.forms import BookingForm
-from bookings.models import Booking
 
 
 class Login(View):

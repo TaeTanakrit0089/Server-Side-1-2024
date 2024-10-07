@@ -1,10 +1,9 @@
-from datetime import datetime, timedelta, date
-from django.shortcuts import render, redirect
-from django.views import View
-from django.utils import timezone
-from django.db.models import Q
-
 from bookings.models import Room, Staff, Booking
+from datetime import datetime, timedelta, date
+from django.db.models import Q
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.views import View
 
 
 class BookingList(View):
@@ -47,7 +46,8 @@ class BookingCreate(View):
         end_date = convert_to_datetime(data['end_date'], data['end_time'])
 
         is_error_date = end_date < start_date
-        is_invalid_duration = (end_date - start_date) > timedelta(hours=3) or (end_date - start_date) < timedelta(hours=1)
+        is_invalid_duration = (end_date - start_date) > timedelta(hours=3) or (end_date - start_date) < timedelta(
+            hours=1)
         is_booked = False
 
         if is_error_date:

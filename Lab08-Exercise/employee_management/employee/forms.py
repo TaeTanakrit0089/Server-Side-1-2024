@@ -1,9 +1,8 @@
+from company.models import Position
 from datetime import date
-
 from django import forms
 from django.core.exceptions import ValidationError
 
-from company.models import Position
 from .models import Project, EmployeeAddress, Employee
 
 

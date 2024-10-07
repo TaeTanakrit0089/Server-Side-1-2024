@@ -1,8 +1,8 @@
-from django.test import TestCase
-from bookings.models import Room, RoomType, Staff, Booking
-from django.utils import timezone
-from datetime import datetime
 import random
+from bookings.models import Room, RoomType, Staff, Booking
+from datetime import datetime
+from django.test import TestCase
+from django.utils import timezone
 
 
 class Setup(TestCase):
@@ -96,24 +96,24 @@ class Setup(TestCase):
                 "position": "Director"
             }
         ]
-        
-    #    booking_data = [
-    #         {
-    #             "start_time": timezone.localtime(datetime(year=2024, month=8, day=15, hour=9, minute=0)),
-    #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=15, hour=11, minute=0)),
-    #             "purpose": "Monthly staff meeting"
-    #         },
-    #         {
-    #             "start_time": timezone.localtime(datetime(year=2024, month=9, day=18, hour=13, minute=0)),
-    #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=18, hour=14, minute=0)),
-    #             "purpose": "Project planning"
-    #         },
-    #         {
-    #             "start_time": timezone.localtime(datetime(year=2024, month=9, day=18, hour=15, minute=0)),
-    #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=18, hour=16, minute=0)),
-    #             "purpose": "Client presentation"
-    #         },
-    #     ]
+
+        #    booking_data = [
+        #         {
+        #             "start_time": timezone.localtime(datetime(year=2024, month=8, day=15, hour=9, minute=0)),
+        #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=15, hour=11, minute=0)),
+        #             "purpose": "Monthly staff meeting"
+        #         },
+        #         {
+        #             "start_time": timezone.localtime(datetime(year=2024, month=9, day=18, hour=13, minute=0)),
+        #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=18, hour=14, minute=0)),
+        #             "purpose": "Project planning"
+        #         },
+        #         {
+        #             "start_time": timezone.localtime(datetime(year=2024, month=9, day=18, hour=15, minute=0)),
+        #             "end_time": timezone.localtime(datetime(year=2024, month=8, day=18, hour=16, minute=0)),
+        #             "purpose": "Client presentation"
+        #         },
+        #     ]
 
         booking_data = [
             {
@@ -145,14 +145,11 @@ class Setup(TestCase):
         for staff in staff_data:
             Staff.objects.create(**staff)
 
-
         staff_runing_id = 0
         room_running_id = 0
         for booking in booking_data:
-            staff = Staff.objects.get(name=staff_data[staff_runing_id]['name'])  
-            room = Room.objects.get(number=bookings_room_data[room_running_id]['number'])       
+            staff = Staff.objects.get(name=staff_data[staff_runing_id]['name'])
+            room = Room.objects.get(number=bookings_room_data[room_running_id]['number'])
             Booking.objects.create(**booking, staff=staff, room=room)
             staff_runing_id += 1
-            room_running_id +=1
-            
-            
+            room_running_id += 1

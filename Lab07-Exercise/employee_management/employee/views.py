@@ -1,5 +1,4 @@
 import json
-
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
 from django.http import Http404, JsonResponse

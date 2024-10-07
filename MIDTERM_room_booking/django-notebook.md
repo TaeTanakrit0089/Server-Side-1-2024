@@ -4,17 +4,17 @@
 
 1. ติดตั้ง virtualenv โดยกำหนด version ของภาษา python ดั่งนี้
 
-    สำหรับ Windows
+   สำหรับ Windows
     ```sh
     py -m venv myvenv
     ```
 
-    สำหรับ MAC OS
+   สำหรับ MAC OS
     ```sh
     python3 -m venv myvenv4
     ```
 
-    activate และติดตั้ง Django และ psycopg2
+   activate และติดตั้ง Django และ psycopg2
     ```sh
     pip install django psycopg2-binary
     ```
@@ -33,7 +33,7 @@
     pip install ipython==8.25.0 jupyter_server==2.14.1 jupyterlab==4.2.2 jupyterlab_server==2.27.2
     ```
 
-    แก้ไข version notebook
+   แก้ไข version notebook
     ```sh
     pip install notebook==6.5.7
     ```
@@ -60,7 +60,7 @@
     ]
     ```
 
-7. ทำการ start Jupyter Notebook server ด้วย command 
+7. ทำการ start Jupyter Notebook server ด้วย command
 
     ```sh
     python manage.py shell_plus --notebook

@@ -1,12 +1,11 @@
+from appointments.models import Doctor, Patient, Appointment
+from appointments.permissions import AppointmentPermission
+from appointments.serializers import DoctorSerializer, PatientSerializer, AppointmentSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from appointments.models import Doctor, Patient, Appointment
-from appointments.permissions import AppointmentPermission
-from appointments.serializers import DoctorSerializer, PatientSerializer, AppointmentSerializer
 
 
 class DoctorList(APIView):

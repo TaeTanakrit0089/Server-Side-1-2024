@@ -1,5 +1,5 @@
 import json
-
+from company.models import Position, Department
 from django.db import transaction
 from django.db.models import Count, Value
 from django.db.models.functions import Concat
@@ -7,7 +7,6 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from company.models import Position, Department
 from .forms import EmployeeForm, ProjectForm, EmployeeAddressForm
 from .models import *
 

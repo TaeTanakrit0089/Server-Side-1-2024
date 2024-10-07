@@ -1,12 +1,11 @@
+from category.forms import CategoryModelForm
+from category.models import Category
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
-
-from category.forms import CategoryModelForm
-from category.models import Category
 
 
 class CategoryListView(LoginRequiredMixin, PermissionRequiredMixin, View):

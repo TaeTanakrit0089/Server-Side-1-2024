@@ -1,6 +1,5 @@
-from django.urls import path
-
 from appointments.views import DoctorList, PatientList, AppointmentList, AppointmentDetail
+from django.urls import path
 
 urlpatterns = [
     path('doctors/', DoctorList.as_view(), name='doctor-list'),
